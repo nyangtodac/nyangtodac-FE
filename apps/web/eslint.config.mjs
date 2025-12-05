@@ -1,6 +1,6 @@
 import babelParser from '@babel/eslint-parser';
+import eslintConfigCustom from '@nyangtodac/eslint-config-custom';
 import nextTs from 'eslint-config-next/typescript';
-import prettier from 'eslint-config-prettier/flat';
 
 // Manually patch the missing parser
 const patchedParser = {
@@ -31,6 +31,7 @@ const { default: nextConfig } =
 const eslintConfig = [
   ...nextConfig,
   ...nextTs,
+  ...eslintConfigCustom,
   {
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],
@@ -93,7 +94,6 @@ const eslintConfig = [
       ],
     },
   },
-  prettier,
   {
     ignores: ['.next/**', 'out/**', 'build/**', 'next-env.d.ts'],
   },
