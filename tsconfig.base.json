@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "es2017",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "esModuleInterop": true,
+      "allowJs": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true, 
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true,
+      "composite": true,
+      "declaration": true,
+      "declarationMap": true,
+      "removeComments": true,
+    }
+}

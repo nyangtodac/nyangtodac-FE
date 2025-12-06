@@ -1,7 +1,8 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": ["expo/tsconfig.base", "../../tsconfig.base.json"],
   "compilerOptions": {
     "noEmit": true,
+    "composite": false,
     "removeComments": true,
     "strict": true,
     "allowJs": true,
@@ -9,15 +10,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "paths": {
-      "@src/*": [
-        "./src/*"
-      ],
-      "assets/*": [
-        "./assets/*"
-      ],
-      "@env": [
-        "./src/lib/env.js"
-      ]
+      "@src/*": ["./src/*"],
+      "assets/*": ["./assets/*"],
+      "@env": ["./src/lib/env.js"]
     }
   },
   "include": [
@@ -28,9 +23,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js"
-  ]
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }
