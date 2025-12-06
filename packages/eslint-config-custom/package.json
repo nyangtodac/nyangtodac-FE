@@ -7,8 +7,8 @@
   },
   "peerDependencies": {
     "eslint": "^9.25.0",
-    "typescript": "~5.9.2",
-    "prettier": "^3.7.4"
+    "prettier": "^3.7.4",
+    "typescript": "~5.9.2"
   },
   "dependencies": {
     "@eslint/eslintrc": "^3.3.3",
