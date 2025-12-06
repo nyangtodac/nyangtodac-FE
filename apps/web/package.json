@@ -18,6 +18,7 @@
     "@babel/eslint-parser": "^7.28.5",
     "@nyangtodac/eslint-config-custom": "workspace:*",
     "@nyangtodac/tailwind-design-tokens": "workspace:*",
+    "@nyangtodac/tailwind-semantic-tokens": "workspace:*",
     "@types/babel__core": "^7",
     "@types/node": "^20",
     "@types/react": "^19",

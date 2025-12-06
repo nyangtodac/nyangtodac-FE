@@ -1,4 +1,4 @@
-declare const _default: {
+declare const _exports: {
     0: string;
     px: string;
     0.5: string;
@@ -35,5 +35,5 @@ declare const _default: {
     80: string;
     96: string;
 };
-export default _default;
+export = _exports;
 //# sourceMappingURL=index.d.ts.map

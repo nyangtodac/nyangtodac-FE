@@ -1,4 +1,4 @@
-declare const _default: {
+declare const _exports: {
     'title-large': (string | {
         lineHeight: string;
         fontWeight: string;
@@ -36,5 +36,5 @@ declare const _default: {
         fontWeight: string;
     })[];
 };
-export default _default;
+export = _exports;
 //# sourceMappingURL=index.d.ts.map

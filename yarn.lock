@@ -2289,6 +2289,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@nyangtodac/tailwind-semantic-tokens@workspace:*, @nyangtodac/tailwind-semantic-tokens@workspace:packages/tailwind-semantic-tokens":
+  version: 0.0.0-use.local
+  resolution: "@nyangtodac/tailwind-semantic-tokens@workspace:packages/tailwind-semantic-tokens"
+  dependencies:
+    "@nyangtodac/tailwind-design-tokens": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@pkgr/core@npm:^0.2.9":
   version: 0.2.9
   resolution: "@pkgr/core@npm:0.2.9"
@@ -8442,6 +8450,7 @@ __metadata:
     "@expo/vector-icons": "npm:^15.0.3"
     "@nyangtodac/eslint-config-custom": "workspace:*"
     "@nyangtodac/tailwind-design-tokens": "workspace:*"
+    "@nyangtodac/tailwind-semantic-tokens": "workspace:*"
     "@react-navigation/bottom-tabs": "npm:^7.4.0"
     "@react-navigation/elements": "npm:^2.6.3"
     "@react-navigation/native": "npm:^7.1.8"
@@ -8483,6 +8492,7 @@ __metadata:
     "@babel/eslint-parser": "npm:^7.28.5"
     "@nyangtodac/eslint-config-custom": "workspace:*"
     "@nyangtodac/tailwind-design-tokens": "workspace:*"
+    "@nyangtodac/tailwind-semantic-tokens": "workspace:*"
     "@types/babel__core": "npm:^7"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"

@@ -17,6 +17,7 @@ export default function Home() {
             To get started, edit the page.tsx file.
           </h1>
           <p className="font-bold text-red-500">hello</p>
+          <p className="font-bold text-destructive">hello</p>
           <p>
             Looking for a starting point or more instructions? Head over to{' '}
             <a

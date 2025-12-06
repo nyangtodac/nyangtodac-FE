@@ -1,0 +1,17 @@
+{
+    "name": "@nyangtodac/tailwind-semantic-tokens",
+    "private": true,
+    "main": "index.js",
+    "type": "commonjs",
+    "exports": {
+        ".": {
+            "types": "./types/index.d.ts",
+            "default": "./index.js",
+            "import": "./index.js",
+            "require": "./index.js"
+        }
+    },
+    "dependencies": {
+        "@nyangtodac/tailwind-design-tokens": "workspace:*"
+    }
+}
