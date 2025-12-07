@@ -1,7 +1,22 @@
-import type { NextConfig } from 'next';
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
 
-const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ['@nyangtodac/ui'],
+
+  turbopack: {
+    resolveExtensions: [
+      '.web.tsx',
+      '.web.ts',
+      '.web.jsx',
+      '.web.js',
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+      '.json',
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

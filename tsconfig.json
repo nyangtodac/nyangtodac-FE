@@ -12,6 +12,9 @@
       },
       {
         "path": "./packages/tailwind-semantic-tokens/tsconfig.json"
+      },
+      {
+        "path": "./packages/ui/tsconfig.json"
       }
     ]
   }

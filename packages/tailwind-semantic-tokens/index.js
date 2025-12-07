@@ -14,6 +14,14 @@ module.exports = {
           DEFAULT: colors.primary[500],
           dark: colors.primary[900],
         },
+        destructive: {
+          DEFAULT: colors.danger[500],
+          dark: colors.danger[900],
+        },
+        success: {
+          DEFAULT: colors.success[500],
+          dark: colors.success[900],
+        },
       },
       textColor: {
         body: {

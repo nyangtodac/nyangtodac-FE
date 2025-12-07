@@ -6,17 +6,14 @@ export const unstable_settings = {
   anchor: '(tabs)',
 };
 
-export default function RootLayout() {
+export default function RootLayout(): React.ReactNode {
   return (
     <Stack>
       <Stack.Screen
-        name="(tabs)"
+        name="index"
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="modal"
-        options={{ presentation: 'modal', title: 'Modal' }}
-      />
+      <Stack.Screen name="(pages)" />
     </Stack>
   );
 }

@@ -1,3 +1,4 @@
+import { Button } from '@nyangtodac/ui';
 import Image from 'next/image';
 
 export default function Home() {
@@ -38,31 +39,13 @@ export default function Home() {
             center.
           </p>
         </div>
-        <div className="flex flex-col gap-2">
-          <a
-            className="text-blue-500"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="w-10 h-10"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="text-green-500"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <Button
+          text="Click me"
+          color="primary"
+          size="default"
+          disabled={false}
+          fullWidth={true}
+        />
       </main>
     </div>
   );
