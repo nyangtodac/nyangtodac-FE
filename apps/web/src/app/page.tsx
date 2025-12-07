@@ -5,6 +5,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center font-family-geist-sans bg-background">
       <main className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center font-family-geist-sans bg-background">
+        <Button
+          text="button"
+          color="primary"
+          size="default"
+          disabled={false}
+          fullWidth={false}
+        />
         <Image
           className="w-10 h-10"
           src="/next.svg"
@@ -39,13 +46,6 @@ export default function Home() {
             center.
           </p>
         </div>
-        <Button
-          text="Click me"
-          color="primary"
-          size="default"
-          disabled={false}
-          fullWidth={true}
-        />
       </main>
     </div>
   );
