@@ -1,3 +1,4 @@
+import I18nProvider from '@src/components/layout/i18n-provider';
 import { Stack } from 'expo-router';
 import 'react-native-reanimated';
 
@@ -9,12 +10,14 @@ export const unstable_settings = {
 
 export default function RootLayout(): React.ReactNode {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="(pages)" />
-    </Stack>
+    <I18nProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="(pages)" />
+      </Stack>
+    </I18nProvider>
   );
 }

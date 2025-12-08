@@ -1,6 +1,6 @@
 {
     "name": "@nyangtodac/locales",
     "private": true,
-    "main": "index.js",
+    "main": "index.ts",
     "types": "types/index.d.ts"
 }
