@@ -1,12 +1,13 @@
-import i18n from '@src/lib/i18n';
 import { getLocales } from 'expo-localization';
 import { createMMKV } from 'react-native-mmkv';
+
+import { initI18n } from '@nyangtodac/i18n';
 
 export const storage = createMMKV();
 
 const LANGUAGE_KEY = 'language';
 
-export const getLanguage = () => {
+const getLanguage = () => {
   const lang = storage.getString(LANGUAGE_KEY);
 
   if (!lang) {
@@ -18,7 +19,18 @@ export const getLanguage = () => {
   return lang;
 };
 
-export const changeLanguage = (language: string) => {
+const changeLanguage = (language: string) => {
   i18n.changeLanguage(language);
   storage.set(LANGUAGE_KEY, language);
 };
+
+export const useLanguage = () => {
+  const language = getLanguage();
+
+  return {
+    language,
+    changeLanguage,
+  };
+};
+
+export const i18n = initI18n(getLanguage());

@@ -1,4 +1,4 @@
-import I18nProvider from '@src/components/layout/i18n-provider';
+import { I18nProvider } from '@src/lib/i18n';
 import { Stack } from 'expo-router';
 import 'react-native-reanimated';
 

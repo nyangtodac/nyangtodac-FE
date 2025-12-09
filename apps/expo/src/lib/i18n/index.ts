@@ -1,7 +1,2 @@
-import { initI18n } from '@nyangtodac/i18n';
-
-import { getLanguage } from './utils';
-
-const i18n = initI18n(getLanguage());
-
-export default i18n;
+export { default as I18nProvider } from './i18n-provider';
+export { i18n, useLanguage } from './utils';
