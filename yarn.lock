@@ -5752,7 +5752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-image@npm:~3.0.10":
+"expo-image@npm:^3.0.11":
   version: 3.0.11
   resolution: "expo-image@npm:3.0.11"
   peerDependencies:
@@ -8743,7 +8743,7 @@ __metadata:
     expo-dev-client: "npm:^6.0.20"
     expo-font: "npm:~14.0.9"
     expo-haptics: "npm:~15.0.7"
-    expo-image: "npm:~3.0.10"
+    expo-image: "npm:^3.0.11"
     expo-linking: "npm:~8.0.9"
     expo-localization: "npm:^17.0.8"
     expo-router: "npm:~6.0.16"

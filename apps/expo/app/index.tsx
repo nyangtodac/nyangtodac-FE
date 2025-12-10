@@ -51,6 +51,14 @@ export default function HomeScreen(): React.ReactNode {
         disabled={false}
         fullWidth={false}
       />
+      <Button
+        text="image page"
+        onPress={() => router.push('/(pages)/image')}
+        color="primary"
+        size="default"
+        disabled={false}
+        fullWidth={false}
+      />
     </View>
   );
 }
