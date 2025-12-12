@@ -5,7 +5,7 @@ interface TextProps extends React.HTMLAttributes<HTMLElement> {
     tx?: string;
 }
 export default function Text({ as, className, tx, children, ...props }: TextProps): import("react").DetailedReactHTMLElement<{
-    className: string;
+    className: string | undefined;
     defaultChecked?: boolean | undefined;
     defaultValue?: string | number | readonly string[] | undefined;
     suppressContentEditableWarning?: boolean | undefined;
