@@ -9,24 +9,24 @@ export const button = tv({
   variants: {
     color: {
       primary: {
-        container: 'bg-primary dark:bg-primary-dark',
+        container: 'bg-primary',
         label: 'text-white',
         indicator: 'text-white',
       },
       secondary: {
-        container: 'bg-page dark:bg-page-dark border border-solid',
-        label: 'text-body dark:text-body-dark',
-        indicator: 'text-body dark:text-body-dark',
+        container: 'bg-page border border-solid',
+        label: 'text-body',
+        indicator: 'text-body',
       },
       destructive: {
-        container: 'bg-destructive dark:bg-destructive-dark',
+        container: 'bg-destructive',
         label: 'text-white',
         indicator: 'text-white',
       },
       link: {
         container: 'bg-transparent',
-        label: 'text-body dark:text-body-dark underline',
-        indicator: 'text-body dark:text-body-dark',
+        label: 'text-body underline',
+        indicator: 'text-body',
       },
     },
     size: {

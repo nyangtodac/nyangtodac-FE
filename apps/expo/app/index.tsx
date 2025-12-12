@@ -10,10 +10,10 @@ export default function HomeScreen(): React.ReactNode {
   const { t } = useTranslation();
 
   return (
-    <View className="flex-1 items-center justify-center gap-4">
+    <View className="flex-1 items-center justify-center gap-4 bg-page">
       <Text className="text-2xl font-bold text-success">{t('hello')}</Text>
-      <Text>ENV: {ENV.APP_ENV}</Text>
-      <Text>SECRET_KEY: {ENV.SECRET_KEY}</Text>
+      <Text className="text-body">ENV: {ENV.APP_ENV}</Text>
+      <Text className="text-body">SECRET_KEY: {ENV.SECRET_KEY}</Text>
       <Button
         text="change language"
         onPress={() => router.push('/(pages)/lang')}
@@ -57,6 +57,14 @@ export default function HomeScreen(): React.ReactNode {
       <Button
         text="image page"
         onPress={() => router.push('/(pages)/image')}
+        color="primary"
+        size="default"
+        disabled={false}
+        fullWidth={false}
+      />
+      <Button
+        text="theme page"
+        onPress={() => router.push('/(pages)/theme')}
         color="primary"
         size="default"
         disabled={false}

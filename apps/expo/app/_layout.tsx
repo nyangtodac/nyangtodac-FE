@@ -1,6 +1,8 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { I18nProvider } from '@src/lib/i18n';
+import { useTheme } from '@src/lib/theme';
 import { Stack } from 'expo-router';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
@@ -10,18 +12,25 @@ export const unstable_settings = {
   anchor: '(tabs)',
 };
 
+const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { theme } = useTheme();
+  return <View className={`${theme} flex-1`}>{children}</View>;
+};
+
 export default function RootLayout(): React.ReactNode {
   return (
     <I18nProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
-          <Stack>
-            <Stack.Screen
-              name="index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="(pages)" />
-          </Stack>
+          <ThemeWrapper>
+            <Stack>
+              <Stack.Screen
+                name="index"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="(pages)" />
+            </Stack>
+          </ThemeWrapper>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </I18nProvider>

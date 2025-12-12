@@ -1,9 +1,8 @@
 import { getLocales } from 'expo-localization';
-import { createMMKV } from 'react-native-mmkv';
 
 import { initI18n } from '@nyangtodac/i18n';
 
-export const storage = createMMKV();
+import { storage } from '../store';
 
 const LANGUAGE_KEY = 'language';
 

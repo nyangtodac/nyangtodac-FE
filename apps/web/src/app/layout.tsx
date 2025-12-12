@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import I18nProvider from '@/lib/i18n/i18n-provider';
-import { ThemeProvider, initialTheme } from '@/lib/theme';
+import { ThemeProvider } from '@/lib/theme';
+import ThemeSync from '@/lib/theme/theme-sync';
 
 import './globals.css';
 
@@ -34,10 +35,11 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme={initialTheme}
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <ThemeSync />
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
       </body>
