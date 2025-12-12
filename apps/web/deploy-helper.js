@@ -51,7 +51,7 @@ const routesJson = {
     '/_next/static/*', // CSS, JS, 폰트 등 정적 리소스 제외 (CDN 직통)
     '/favicon.ico', // 파비콘 제외
     '/*.svg', // 루트에 있는 SVG 파일들 제외
-    '/*.png', // (필요 시) 이미지 제외
+    '/*.png',
     '/*.jpg',
   ],
 };

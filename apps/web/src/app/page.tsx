@@ -6,8 +6,8 @@ import { Button, Text } from '@nyangtodac/ui';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center font-family-geist-sans bg-background">
-      <main className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center font-family-geist-sans bg-background">
+    <div className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center gap-4 font-family-geist-sans bg-page p-8">
+      <main className="flex min-h-screen w-full max-w-800px flex-col items-start justify-center gap-4 font-family-geist-sans">
         <Text
           as="h1"
           tx="hello"

@@ -3,7 +3,7 @@ import nextTs from 'eslint-config-next/typescript';
 
 import eslintConfigCustom from '@nyangtodac/eslint-config-custom';
 
-// Manually patch the missing parser
+// Manually patch the missing parser.
 const patchedParser = {
   parse: babelParser.parse,
   parseForESLint: babelParser.parseForESLint,
@@ -13,7 +13,7 @@ const patchedParser = {
   },
 };
 
-// Create a mock module for Next.js to use
+// Create a mock module for Next.js to use.
 if (!globalThis.__NEXT_BABEL_PARSER_PATCHED__) {
   const Module = await import('module');
   const originalRequire = Module.default.prototype.require;

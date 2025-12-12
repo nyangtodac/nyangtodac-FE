@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import I18nProvider from '@/lib/i18n/i18n-provider';
+import { ThemeProvider, initialTheme } from '@/lib/theme';
 
 import './globals.css';
 
@@ -26,9 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <I18nProvider>{children}</I18nProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={initialTheme}
+          enableSystem
+          disableTransitionOnChange
+        >
+          <I18nProvider>{children}</I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
