@@ -8,6 +8,7 @@ module.exports = {
     require('@nyangtodac/tailwind-design-tokens'),
     require('@nyangtodac/tailwind-semantic-tokens'),
   ],
+  safelist: ['dark'],
   darkMode: 'class',
   theme: {
     extend: {},

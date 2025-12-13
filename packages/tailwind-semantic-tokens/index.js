@@ -29,7 +29,7 @@ module.exports = {
     plugin(({ addBase }) => {
       addBase({
         ':root': semanticColors.light,
-        '.dark': semanticColors.dark,
+        ':root.dark': semanticColors.dark,
       });
     }),
   ],

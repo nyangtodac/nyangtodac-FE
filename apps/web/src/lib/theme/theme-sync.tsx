@@ -7,16 +7,14 @@ import { useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
 
 export default function ThemeSync() {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme } = useTheme();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const themeParam = searchParams.get('theme');
+    const themeParam = searchParams.get('theme') ?? 'system';
 
-    if (themeParam && themeParam !== resolvedTheme) {
-      setTheme(themeParam);
-    }
-  }, [searchParams, setTheme, resolvedTheme]);
+    setTheme(themeParam);
+  }, [searchParams, setTheme]);
 
   return null;
 }

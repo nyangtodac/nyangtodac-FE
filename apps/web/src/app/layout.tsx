@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -39,7 +41,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ThemeSync />
+          <Suspense fallback={null}>
+            <ThemeSync />
+          </Suspense>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
       </body>
