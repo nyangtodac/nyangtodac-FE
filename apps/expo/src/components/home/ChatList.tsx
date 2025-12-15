@@ -5,6 +5,7 @@ import { FlatList } from 'react-native-gesture-handler';
 
 interface ChatListProps {
   chats: Chat[];
+  ref: React.RefObject<FlatList | null>;
 }
 
 export interface Chat {
@@ -51,7 +52,7 @@ const AssistantChatBox = ({ messages, time }: AssistantChat) => {
   );
 };
 
-export default function ChatList({ chats }: ChatListProps) {
+export default function ChatList({ ref, chats }: ChatListProps) {
   const parseChats = useCallback(
     (chats: Chat[]): (UserChat | AssistantChat)[] => {
       const stack: (UserChat | AssistantChat)[] = [];
@@ -85,6 +86,7 @@ export default function ChatList({ chats }: ChatListProps) {
 
   return (
     <FlatList
+      ref={ref}
       data={parsedChats}
       inverted={true}
       style={{ flex: 1 }}

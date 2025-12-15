@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { Pressable } from '@src/components/ui';
-import { TextInput } from 'react-native-gesture-handler';
+import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { useKeyboardHandler } from 'react-native-keyboard-controller';
 import Animated, {
   useAnimatedStyle,
@@ -98,6 +98,7 @@ const chatMockData = [
 export default function ChatScreen() {
   const insets = useSafeAreaInsets();
   const inputRef = useRef<TextInput>(null);
+  const flatListRef = useRef<FlatList>(null);
 
   const [isChatModalVisible, setIsChatModalVisible] = useState(false);
   const [message, setMessage] = useState('');
@@ -127,6 +128,7 @@ export default function ChatScreen() {
   }, []);
 
   const handleInputFocus = useCallback(() => {
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
     setIsChatModalVisible(true);
   }, []);
 
@@ -156,7 +158,12 @@ export default function ChatScreen() {
           className="flex flex-1 flex-col justify-end px-4"
           style={[inputAnimatedStyle]}
         >
-          {isChatModalVisible && <ChatList chats={chats} />}
+          {isChatModalVisible && (
+            <ChatList
+              ref={flatListRef}
+              chats={chats}
+            />
+          )}
           <ChatInputBar
             ref={inputRef}
             message={message}
