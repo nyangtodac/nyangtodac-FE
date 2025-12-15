@@ -1,12 +1,13 @@
 import { Button, View } from '@src/components/ui';
 import { TextInput } from 'react-native-gesture-handler';
+import { SharedValue } from 'react-native-reanimated';
 
 interface ChatInputBarProps {
   message: string;
   onMessageChange: (text: string) => void;
   onFocus: () => void;
   onSend: () => void;
-  paddingBottom: number;
+  paddingBottom: SharedValue<number>;
   ref: React.Ref<TextInput>;
 }
 
@@ -15,14 +16,10 @@ export default function ChatInputBar({
   onMessageChange,
   onFocus,
   onSend,
-  paddingBottom,
   ref,
 }: ChatInputBarProps) {
   return (
-    <View
-      className="flex flex-row items-end justify-center gap-2 px-4"
-      style={{ paddingBottom }}
-    >
+    <View className="flex flex-row items-end justify-center gap-2 pt-4">
       <TextInput
         ref={ref}
         className="mt-0 bg-white rounded-xl border border-solid border-primary p-4 font-inter text-lg font-medium leading-5 text-body grow"

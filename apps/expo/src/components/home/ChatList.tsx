@@ -1,5 +1,5 @@
 import { Text, View } from '@src/components/ui';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList } from 'react-native-gesture-handler';
 
 interface ChatListProps {
   chats: Chat[];
@@ -11,25 +11,24 @@ export interface Chat {
   time: string;
 }
 
-// ChatModalHeader 높이 (버튼 + 패딩)
-const HEADER_CONTENT_HEIGHT = 60;
-
 export default function ChatList({ chats }: ChatListProps) {
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + HEADER_CONTENT_HEIGHT;
-
   return (
-    <View
-      className="flex flex-1 w-full flex-col justify-end gap-6 px-4 py-4 overflow-hidden"
-      style={{ paddingTop: headerHeight }}
-    >
-      {chats.map((chat, idx) => (
+    <FlatList
+      data={chats}
+      inverted={true}
+      style={{ flex: 1 }}
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: 'flex-start',
+        gap: 16,
+      }}
+      showsVerticalScrollIndicator={false}
+      bounces={false}
+      overScrollMode="never"
+      keyExtractor={(_, index) => index.toString()}
+      renderItem={({ item: chat }) => (
         <View
-          key={idx}
-          className="flex flex-row items-center"
-          style={{
-            alignSelf: chat.sender === 'USER' ? 'flex-end' : 'flex-start',
-          }}
+          className={`flex flex-row items-center ${chat.sender === 'USER' ? 'self-end' : 'self-start'}`}
         >
           {chat.sender === 'USER' ? (
             <View className="ml-10 bg-blue-100 rounded-xl p-4">
@@ -48,7 +47,7 @@ export default function ChatList({ chats }: ChatListProps) {
             </View>
           )}
         </View>
-      ))}
-    </View>
+      )}
+    />
   );
 }

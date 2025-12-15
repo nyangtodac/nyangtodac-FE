@@ -5,7 +5,6 @@ export { Modal, useModal } from './modal';
 
 export {
   ActivityIndicator,
-  KeyboardAvoidingView,
   Pressable,
   ScrollView,
   TouchableOpacity,

@@ -6,7 +6,7 @@ interface ChatModalHeaderProps {
 
 export default function ChatModalHeader({ onBack }: ChatModalHeaderProps) {
   return (
-    <View className="flex flex-row justify-start gap-2 px-4 w-full">
+    <View className="flex flex-row justify-start gap-2 px-4 pb-3 w-full">
       <Button
         text="Back"
         onPress={onBack}
@@ -15,7 +15,7 @@ export default function ChatModalHeader({ onBack }: ChatModalHeaderProps) {
         size="sm"
         fullWidth={false}
         disabled={false}
-        className="rounded-xl border border-primary py-3"
+        className="rounded-xl border border-primary px-3"
       />
     </View>
   );

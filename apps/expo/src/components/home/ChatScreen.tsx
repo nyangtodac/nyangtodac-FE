@@ -1,7 +1,12 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { KeyboardAvoidingView, Pressable } from '@src/components/ui';
+import { Pressable } from '@src/components/ui';
 import { TextInput } from 'react-native-gesture-handler';
+import { useKeyboardHandler } from 'react-native-keyboard-controller';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ChatInputBar from './ChatInputBar';
@@ -12,18 +17,23 @@ import ChatOverlay from './ChatOverlay';
 const chatMockData = [
   {
     sender: 'AI',
-    message: '안녕 나는 냥토닥이야',
-    time: '12:00',
+    message: '그러고 나서 친구들과 다시 얘기해보는건 어때?',
+    time: '12:04',
   },
   {
     sender: 'AI',
-    message: '오늘은 무슨 일이 있었어?',
-    time: '12:01',
+    message: '그러고 나서 친구들과 다시 얘기해보는건 어때?',
+    time: '12:04',
   },
   {
     sender: 'AI',
-    message: '지금 감정이 어떤지 나에게 알려줘',
-    time: '12:02',
+    message: '일단 숨을 깊게 쉬고 마음을 가라앉혀봐',
+    time: '12:04',
+  },
+  {
+    sender: 'AI',
+    message: '그랬구나',
+    time: '12:04',
   },
   {
     sender: 'USER',
@@ -33,8 +43,33 @@ const chatMockData = [
   },
   {
     sender: 'AI',
-    message: '그랬구나',
-    time: '12:04',
+    message: '지금 감정이 어떤지 나에게 알려줘',
+    time: '12:02',
+  },
+  {
+    sender: 'AI',
+    message: '오늘은 무슨 일이 있었어?',
+    time: '12:01',
+  },
+  {
+    sender: 'AI',
+    message: '안녕 나는 냥토닥이야',
+    time: '12:00',
+  },
+  {
+    sender: 'AI',
+    message: '안녕 나는 냥토닥이야',
+    time: '12:00',
+  },
+  {
+    sender: 'AI',
+    message: '안녕 나는 냥토닥이야',
+    time: '12:00',
+  },
+  {
+    sender: 'AI',
+    message: '안녕 나는 냥토닥이야',
+    time: '12:00',
   },
 ];
 
@@ -46,8 +81,26 @@ export default function ChatScreen() {
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState<Chat[]>(chatMockData as Chat[]);
 
+  const keyboardHeight = useSharedValue<number>(0);
+
+  useKeyboardHandler({
+    onMove: (e) => {
+      'worklet';
+      keyboardHeight.value = e.height;
+    },
+  });
+
+  const inputAnimatedStyle = useAnimatedStyle(() => {
+    const actualHeight = Math.max(keyboardHeight.value, insets.bottom);
+
+    return {
+      paddingBottom: actualHeight + 16,
+    };
+  });
+
   const handleBack = useCallback(() => {
     setIsChatModalVisible(false);
+    setMessage('');
     inputRef.current?.blur();
   }, []);
 
@@ -71,31 +124,27 @@ export default function ChatScreen() {
     <>
       <ChatOverlay visible={isChatModalVisible} />
 
-      <KeyboardAvoidingView
-        behavior="padding"
-        className="flex-1"
+      <Pressable
+        className="flex flex-1 flex-col justify-end w-full"
+        onPress={() => inputRef.current?.blur()}
       >
-        <Pressable
-          className="flex flex-1 flex-col items-center justify-end"
-          onPress={() => inputRef.current?.blur()}
-        >
-          {isChatModalVisible && (
-            <>
-              <ChatModalHeader onBack={handleBack} />
-              <ChatList chats={chats} />
-            </>
-          )}
+        {isChatModalVisible && <ChatModalHeader onBack={handleBack} />}
 
+        <Animated.View
+          className="flex flex-1 flex-col justify-end px-4"
+          style={[inputAnimatedStyle]}
+        >
+          {isChatModalVisible && <ChatList chats={chats} />}
           <ChatInputBar
             ref={inputRef}
             message={message}
             onMessageChange={setMessage}
             onFocus={handleInputFocus}
             onSend={handleSend}
-            paddingBottom={insets.bottom} // TODO: 키보드 내려갔을 때 패딩 조절
+            paddingBottom={keyboardHeight}
           />
-        </Pressable>
-      </KeyboardAvoidingView>
+        </Animated.View>
+      </Pressable>
     </>
   );
 }
