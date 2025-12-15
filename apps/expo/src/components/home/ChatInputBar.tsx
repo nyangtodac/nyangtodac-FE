@@ -27,7 +27,6 @@ export default function ChatInputBar({
     <Pressable
       className="flex flex-row items-end justify-center gap-2 pt-4"
       onPress={async () => {
-        console.log('onPress');
         if (isChatModalVisible) return;
 
         setIsChatModalVisible(!isChatModalVisible);

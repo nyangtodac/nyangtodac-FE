@@ -15,14 +15,51 @@ import ChatModalHeader from './ChatModalHeader';
 import ChatOverlay from './ChatOverlay';
 
 const chatMockData = [
+  // --- 최신 (화면 맨 아래) ---
   {
     sender: 'AI',
-    message: '그러고 나서 친구들과 다시 얘기해보는건 어때?',
-    time: '12:04',
+    message: '언제든 또 찾아와 줘',
+    time: '12:08',
   },
   {
     sender: 'AI',
-    message: '그러고 나서 친구들과 다시 얘기해보는건 어때?',
+    message: '오늘 밤은 푹 자길 바랄게',
+    time: '12:08',
+  },
+  {
+    sender: 'USER',
+    message: '고마워, 덕분에 마음이 좀 편해졌어.',
+    time: '12:07',
+  },
+  {
+    sender: 'AI',
+    message: '정말 멋진 생각이야',
+    time: '12:06',
+  },
+  {
+    sender: 'AI',
+    message: '너는 충분히 용기 있는 사람이야',
+    time: '12:06',
+  },
+  {
+    sender: 'AI',
+    message: '거절당해도 네 잘못이 아니야',
+    time: '12:06',
+  },
+  {
+    sender: 'AI',
+    message: '천천히 다가가도 괜찮아',
+    time: '12:06',
+  },
+  {
+    sender: 'USER',
+    message:
+      '내일 학교 가서 내가 먼저 말을 걸어볼게. 받아줄지 모르겠지만 용기내볼게.',
+    time: '12:05',
+  },
+  {
+    sender: 'AI',
+    message: '그리고 나서 친구들과 다시 얘기해보는건 어때?',
     time: '12:04',
   },
   {
@@ -50,21 +87,6 @@ const chatMockData = [
     sender: 'AI',
     message: '오늘은 무슨 일이 있었어?',
     time: '12:01',
-  },
-  {
-    sender: 'AI',
-    message: '안녕 나는 냥토닥이야',
-    time: '12:00',
-  },
-  {
-    sender: 'AI',
-    message: '안녕 나는 냥토닥이야',
-    time: '12:00',
-  },
-  {
-    sender: 'AI',
-    message: '안녕 나는 냥토닥이야',
-    time: '12:00',
   },
   {
     sender: 'AI',
