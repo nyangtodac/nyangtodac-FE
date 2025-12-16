@@ -50,12 +50,21 @@ export default function ChatInputBar({
       style={{ backgroundColor: 'rgba(65, 65, 65, 0.9)' }}
       onPress={handlePress}
     >
-      <Ionicons
-        name="sparkles"
-        size={24}
-        color="rgb(224, 224, 224)"
+      <Pressable
+        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        onPress={() => {
+          if (!isChatModalVisible) return;
+
+          console.log('추천');
+        }}
         className="bg-neutral-600 aspect-square rounded-full p-3"
-      />
+      >
+        <Ionicons
+          name="sparkles"
+          size={24}
+          color="rgb(224, 224, 224)"
+        />
+      </Pressable>
       <View
         className="flex-1 justify-center"
         pointerEvents={isChatModalVisible ? 'auto' : 'none'}
@@ -72,17 +81,21 @@ export default function ChatInputBar({
           textAlignVertical="center"
         />
       </View>
-      <FontAwesome
-        name="send"
-        size={22}
-        color={
-          message.length > 0
-            ? 'rgba(255, 255, 255, 0.8)'
-            : 'rgba(255, 255, 255, 0.5)'
-        }
-        className="pr-4"
+      <Pressable
         onPress={onSend}
-      />
+        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+      >
+        <FontAwesome
+          name="send"
+          size={22}
+          color={
+            message.length > 0
+              ? 'rgba(255, 255, 255, 0.8)'
+              : 'rgba(255, 255, 255, 0.5)'
+          }
+          className="pr-4"
+        />
+      </Pressable>
     </Pressable>
   );
 }
