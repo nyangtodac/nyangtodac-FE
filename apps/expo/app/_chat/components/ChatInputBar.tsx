@@ -41,32 +41,49 @@ export default function ChatInputBar({
 
   return (
     <Pressable
-      className="flex flex-row items-end justify-center gap-2 pt-4"
+      className="flex flex-row items-center 
+      justify-center gap-2 mt-4 border-input 
+      border-neutral-700
+      border-solid border rounded-2xl
+      focus:border-neutral-600 py-1"
+      style={{ backgroundColor: 'rgba(65, 65, 65, 0.9)' }}
       onPress={handlePress}
     >
+      <Button
+        text="⬆"
+        onPress={() => console.log('추천')}
+        isLoading={false}
+        color="link"
+        size="default"
+        fullWidth={false}
+        disabled={false}
+        className="py-2 bg-neutral-800 rounded-3xl"
+      />
       <View
-        className="flex-1"
+        className="flex-1 justify-center"
         pointerEvents={isChatModalVisible ? 'auto' : 'none'}
       >
         <TextInput
           ref={ref}
-          className="mt-0 bg-input rounded-xl border border-solid border-input p-4 font-inter text-lg font-medium leading-5 text-input grow focus:border-input-focus"
-          placeholder="Enter your chat"
-          placeholderTextColor="var(--input-placeholder)"
+          className="bg-chat-input rounded-xl px-2 text-white grow focus:border-input-focus"
+          style={{ fontSize: 16 }}
+          placeholder="메시지를 입력해주세요"
+          placeholderTextColor="rgba(255, 255, 255, 0.50)"
           onFocus={onFocus}
           value={message}
           onChangeText={onMessageChange}
+          textAlignVertical="center"
         />
       </View>
       <Button
         text="⬆"
         onPress={onSend}
         isLoading={false}
-        color="primary"
+        color="link"
         size="default"
         fullWidth={false}
         disabled={false}
-        className="rounded-xl border border-primary py-3"
+        className="py-3"
       />
     </Pressable>
   );
