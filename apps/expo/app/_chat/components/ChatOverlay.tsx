@@ -4,7 +4,7 @@ interface ChatOverlayProps {
   visible: boolean;
 }
 
-export default function ChatOverlay({ visible }: ChatOverlayProps) {
+export function ChatOverlay({ visible }: ChatOverlayProps) {
   if (!visible) return null;
 
   return (
