@@ -8,7 +8,7 @@ export default function HomeScreen(): React.ReactNode {
 
   return (
     <View
-      className="flex-1 bg-red-100"
+      className="flex-1 bg-green-100"
       style={{ paddingTop: insets.top }}
     >
       <ChatScreen />

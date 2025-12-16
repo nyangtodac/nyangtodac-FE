@@ -22,7 +22,7 @@ interface ChatInputBarProps {
   setIsChatModalVisible: (visible: boolean) => void;
 }
 
-export function ChatInputBar({
+export default function ChatInputBar({
   message,
   onMessageChange,
   onFocus,
@@ -50,8 +50,9 @@ export function ChatInputBar({
       >
         <TextInput
           ref={ref}
-          className="mt-0 bg-white rounded-xl border border-solid border-primary p-4 font-inter text-lg font-medium leading-5 text-body grow"
+          className="mt-0 bg-input rounded-xl border border-solid border-input p-4 font-inter text-lg font-medium leading-5 text-input grow focus:border-input-focus"
           placeholder="Enter your chat"
+          placeholderTextColor="var(--input-placeholder)"
           onFocus={onFocus}
           value={message}
           onChangeText={onMessageChange}

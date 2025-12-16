@@ -1,2 +1,2 @@
-export { AssistantChatBox } from './AssistantChatBox';
-export { UserChatBox } from './UserChatBox';
+export { default as AssistantChatBox } from './AssistantChatBox';
+export { default as UserChatBox } from './UserChatBox';

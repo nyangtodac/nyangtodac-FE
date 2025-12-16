@@ -4,7 +4,7 @@ interface ChatModalHeaderProps {
   onBack: () => void;
 }
 
-export function ChatModalHeader({ onBack }: ChatModalHeaderProps) {
+export default function ChatModalHeader({ onBack }: ChatModalHeaderProps) {
   return (
     <View className="flex flex-row justify-start gap-2 px-4 pb-3 w-full">
       <Button

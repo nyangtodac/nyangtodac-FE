@@ -9,7 +9,7 @@ import {
 } from './components';
 import { useChat, useChatKeyboard } from './hooks';
 
-export function ChatScreen() {
+export default function ChatScreen() {
   const {
     inputRef,
     flatListRef,

@@ -13,7 +13,7 @@ interface ChatListProps {
   ref: React.RefObject<FlatList | null>;
 }
 
-export function ChatList({ ref, chats }: ChatListProps) {
+export default function ChatList({ ref, chats }: ChatListProps) {
   const parsedChats = useMemo(() => parseChats(chats), [chats]);
 
   const renderChatItem = ({ item: chat }: { item: ParsedChat }) => (
