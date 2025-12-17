@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { API_KEY, chatAPI } from '@src/lib/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -54,12 +52,7 @@ export function useChatMessages(): UseChatMessagesReturn {
     },
   });
 
-  const sendMessage = useCallback(
-    (message: string) => {
-      sendMessageMutation.mutate(message);
-    },
-    [sendMessageMutation],
-  );
+  const sendMessage = (message: string) => sendMessageMutation.mutate(message);
 
   return {
     chats: chats || [],
