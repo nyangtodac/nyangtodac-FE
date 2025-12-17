@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { userAPI } from '@src/lib/api';
+import { API_KEY, userAPI } from '@src/lib/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
@@ -39,20 +39,20 @@ export function useChat(): UseChatReturn {
   const [isChatModalVisible, setIsChatModalVisible] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const { data: chats } = useQuery<Chat[]>({
-    queryKey: ['chats'],
+    queryKey: [API_KEY.CHATS],
     queryFn: () => userAPI.getChatHistory(),
   });
 
   const sendMessageMutation = useMutation({
     mutationFn: userAPI.sendMessage,
     onMutate: async (message) => {
-      await queryClient.cancelQueries({ queryKey: ['chats'] });
+      await queryClient.cancelQueries({ queryKey: [API_KEY.CHATS] });
 
       // 현재 채팅 내용 스냅샷
-      const chatSnapshot = queryClient.getQueryData<Chat[]>(['chats']);
+      const chatSnapshot = queryClient.getQueryData<Chat[]>([API_KEY.CHATS]);
 
       // chats 쿼리에 새로운 메시지 낙관적 업데이트
-      queryClient.setQueryData<Chat[]>(['chats'], (old) => [
+      queryClient.setQueryData<Chat[]>([API_KEY.CHATS], (old) => [
         { sender: ROLE.USER, message, time: new Date().toISOString() },
         ...(old || []),
       ]);
@@ -61,18 +61,18 @@ export function useChat(): UseChatReturn {
       return { chatSnapshot };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chats'] });
+      queryClient.invalidateQueries({ queryKey: [API_KEY.CHATS] });
     },
     onError: (error, _, context) => {
       // chats 를 스냅샷으로 되돌림
       if (context?.chatSnapshot) {
-        queryClient.setQueryData<Chat[]>(['chats'], context.chatSnapshot);
+        queryClient.setQueryData<Chat[]>([API_KEY.CHATS], context.chatSnapshot);
       }
       console.error(error);
     },
     onSettled: () => {
       // 서버와 동기화
-      queryClient.invalidateQueries({ queryKey: ['chats'] });
+      queryClient.invalidateQueries({ queryKey: [API_KEY.CHATS] });
     },
   });
 
