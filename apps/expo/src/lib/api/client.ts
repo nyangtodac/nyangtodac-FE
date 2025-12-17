@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { ENV } from '../env';
-import { storage } from '../store';
 
 const BASE_URL = ENV.BASE_URL;
 
@@ -14,12 +13,14 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(
-  async (config) => {
-    const accessToken = storage.getString('accessToken');
+  (config) => {
+    // const accessToken = storage.getString('accessToken');
+    const accessToken = ENV.ACCESS_TOKEN;
 
     if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+
     return config;
   },
   (error) => {
@@ -31,10 +32,11 @@ apiClient.interceptors.response.use(
   (response) => {
     return response.data;
   },
-  async (error) => {
+  (error) => {
     if (error.response?.status === 401) {
       console.log('토큰이 만료되었습니다. 로그아웃 처리가 필요합니다.');
     }
+
     return Promise.reject(error);
   },
 );

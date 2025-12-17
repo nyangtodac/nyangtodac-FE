@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
+import { userAPI } from '@src/lib/api/chat';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 import { CHAT_MOCK_DATA, ROLE } from '../constants';
@@ -46,7 +47,7 @@ export function useChat(): UseChatReturn {
     setIsChatModalVisible(true);
   }, []);
 
-  const handleSend = useCallback(() => {
+  const handleSend = useCallback(async () => {
     if (!message.trim()) return;
 
     inputRef.current?.clear();
@@ -55,7 +56,15 @@ export function useChat(): UseChatReturn {
       { sender: ROLE.USER, message, time: new Date().toISOString() },
       ...prev,
     ]);
-    setMessage('');
+    try {
+      const response = await userAPI.sendMessage(message);
+      console.log('response: ', response);
+      setChats((prev) => [...response, ...prev]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setMessage('');
+    }
   }, [message]);
 
   return {
