@@ -1,9 +1,11 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback } from 'react';
 
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
-import { CHAT_MOCK_DATA, ROLE } from '../constants';
 import type { Chat } from '../types';
+import { useChatInput } from './useChatInput';
+import { useChatMessages } from './useChatMessages';
+import { useChatModal } from './useChatModal';
 
 interface UseChatReturn {
   inputRef: React.RefObject<TextInput | null>;
@@ -25,38 +27,42 @@ interface UseChatReturn {
   handleSend: () => void;
   /** 채팅 모달 표시 설정 */
   setIsChatModalVisible: (visible: boolean) => void;
+  /** 채팅 로딩 여부 */
+  isChatLoading: boolean;
 }
 
 export function useChat(): UseChatReturn {
-  const inputRef = useRef<TextInput>(null);
-  const flatListRef = useRef<FlatList>(null);
-
-  const [isChatModalVisible, setIsChatModalVisible] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-  const [chats, setChats] = useState<Chat[]>(CHAT_MOCK_DATA);
+  const { chats, isChatLoading, sendMessage } = useChatMessages();
+  const { isChatModalVisible, setIsChatModalVisible, closeModal, openModal } =
+    useChatModal();
+  const {
+    inputRef,
+    flatListRef,
+    message,
+    setMessage,
+    clearInput,
+    blurInput,
+    scrollToTop,
+  } = useChatInput();
 
   const handleBack = useCallback(() => {
-    setIsChatModalVisible(false);
+    closeModal();
     setMessage('');
-    inputRef.current?.blur();
-  }, []);
+    blurInput();
+  }, [closeModal, setMessage, blurInput]);
 
   const handleInputFocus = useCallback(() => {
-    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
-    setIsChatModalVisible(true);
-  }, []);
+    scrollToTop();
+    openModal();
+  }, [scrollToTop, openModal]);
 
   const handleSend = useCallback(() => {
     if (!message.trim()) return;
 
-    inputRef.current?.clear();
-    inputRef.current?.blur();
-    setChats((prev) => [
-      { sender: ROLE.USER, message, time: new Date().toISOString() },
-      ...prev,
-    ]);
-    setMessage('');
-  }, [message]);
+    clearInput();
+    blurInput();
+    sendMessage(message);
+  }, [message, clearInput, blurInput, sendMessage]);
 
   return {
     inputRef,
@@ -69,5 +75,6 @@ export function useChat(): UseChatReturn {
     handleInputFocus,
     handleSend,
     setIsChatModalVisible,
+    isChatLoading,
   };
 }

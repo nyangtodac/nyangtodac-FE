@@ -30,7 +30,8 @@ const client = z.object({
   ANDROID_PACKAGE: z.string(),
 
   // add client environment variables here
-  SECRET_KEY: z.string(),
+  BASE_URL: z.string(),
+  ACCESS_TOKEN: z.string(),
 });
 
 const buildTime = z.object({
@@ -48,7 +49,8 @@ const _clientEnv = {
   ANDROID_PACKAGE,
 
   // add client environment variables here
-  SECRET_KEY: process.env.SECRET_KEY,
+  BASE_URL: process.env.BASE_URL,
+  ACCESS_TOKEN: process.env.ACCESS_TOKEN,
 };
 
 const _buildTimeEnv = {

@@ -1,5 +1,6 @@
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { View } from '@src/components/ui';
+import { ICONS_SIZE } from '@src/lib/styles';
 import { Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -58,8 +59,8 @@ export default function ChatInputBar({
       >
         <Ionicons
           name="sparkles"
-          size={24}
-          color="rgb(224, 224, 224)"
+          size={ICONS_SIZE.medium}
+          color="rgb(238, 238, 238)"
         />
       </Pressable>
       <View
@@ -82,9 +83,9 @@ export default function ChatInputBar({
         onPress={onSend}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
       >
-        <FontAwesome
+        <Ionicons
           name="send"
-          size={22}
+          size={ICONS_SIZE.medium}
           color={
             message.length > 0
               ? 'rgba(255, 255, 255, 0.8)'
