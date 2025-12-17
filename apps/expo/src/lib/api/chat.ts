@@ -25,7 +25,6 @@ export const chatAPI = {
   },
   getRemainingQuota: async (): Promise<QuotaResponse> => {
     const response: QuotaResponse = await apiClient.get(ROUTES.QUOTA);
-    console.log('response: ', response);
     return response;
   },
 };

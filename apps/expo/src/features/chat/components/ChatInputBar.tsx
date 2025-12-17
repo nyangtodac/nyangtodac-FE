@@ -60,7 +60,7 @@ export default function ChatInputBar({
         <Ionicons
           name="sparkles"
           size={ICONS_SIZE.medium}
-          color="rgb(224, 224, 224)"
+          color="rgb(238, 238, 238)"
         />
       </Pressable>
       <View
