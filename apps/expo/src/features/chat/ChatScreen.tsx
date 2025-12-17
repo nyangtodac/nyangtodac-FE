@@ -22,6 +22,7 @@ export default function ChatScreen() {
     handleSend,
     setIsChatModalVisible,
     isChatLoading,
+    remainingQuota,
   } = useChat();
 
   const { inputAnimatedStyle } = useChatKeyboard();
@@ -34,7 +35,12 @@ export default function ChatScreen() {
         className="flex flex-1 flex-col justify-end w-full"
         onPress={() => inputRef.current?.blur()}
       >
-        {isChatModalVisible && <ChatModalHeader onBack={handleBack} />}
+        {isChatModalVisible && (
+          <ChatModalHeader
+            onBack={handleBack}
+            remainingQuota={remainingQuota}
+          />
+        )}
 
         <Animated.View
           className="flex flex-1 flex-col justify-end px-4"

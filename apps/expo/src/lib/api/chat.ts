@@ -3,19 +3,29 @@ import { Chat } from '@src/features/chat';
 import { apiClient } from './client';
 import { ROUTES } from './route';
 
-interface ChatResponse {
+export interface ChatResponse {
   messages: Chat[];
 }
 
-export const userAPI = {
-  getChatHistory: async () => {
-    const response = (await apiClient.get(ROUTES.CHATS)) as ChatResponse;
+export interface QuotaResponse {
+  quota: number;
+  timeToRefill: string;
+}
+
+export const chatAPI = {
+  getChatHistory: async (): Promise<Chat[]> => {
+    const response: ChatResponse = await apiClient.get(ROUTES.CHATS);
     return response.messages;
   },
   sendMessage: async (message: string): Promise<Chat[]> => {
-    const response = (await apiClient.post(ROUTES.CHATS, {
+    const response: ChatResponse = await apiClient.post(ROUTES.CHATS, {
       message,
-    })) as ChatResponse;
+    });
     return response.messages;
+  },
+  getRemainingQuota: async (): Promise<QuotaResponse> => {
+    const response: QuotaResponse = await apiClient.get(ROUTES.QUOTA);
+    console.log('response: ', response);
+    return response;
   },
 };

@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { API_KEY, userAPI } from '@src/lib/api';
+import { API_KEY, QuotaResponse, chatAPI } from '@src/lib/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
@@ -30,6 +30,8 @@ interface UseChatReturn {
   setIsChatModalVisible: (visible: boolean) => void;
   /** 채팅 로딩 여부 */
   isChatLoading: boolean;
+  /** 남은 횟수 */
+  remainingQuota: QuotaResponse | undefined;
 }
 
 export function useChat(): UseChatReturn {
@@ -38,13 +40,19 @@ export function useChat(): UseChatReturn {
 
   const [isChatModalVisible, setIsChatModalVisible] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+
   const { data: chats } = useQuery<Chat[]>({
     queryKey: [API_KEY.CHATS],
-    queryFn: () => userAPI.getChatHistory(),
+    queryFn: () => chatAPI.getChatHistory(),
+  });
+
+  const { data: remainingQuota } = useQuery({
+    queryKey: [API_KEY.QUOTA],
+    queryFn: () => chatAPI.getRemainingQuota(),
   });
 
   const sendMessageMutation = useMutation({
-    mutationFn: userAPI.sendMessage,
+    mutationFn: chatAPI.sendMessage,
     onMutate: async (message) => {
       await queryClient.cancelQueries({ queryKey: [API_KEY.CHATS] });
 
@@ -72,7 +80,9 @@ export function useChat(): UseChatReturn {
     },
     onSettled: () => {
       // 서버와 동기화
-      queryClient.invalidateQueries({ queryKey: [API_KEY.CHATS] });
+      queryClient.invalidateQueries({
+        queryKey: [API_KEY.CHATS, API_KEY.QUOTA],
+      });
     },
   });
 
@@ -108,5 +118,6 @@ export function useChat(): UseChatReturn {
     handleSend,
     setIsChatModalVisible,
     isChatLoading: sendMessageMutation.isPending,
+    remainingQuota,
   };
 }
