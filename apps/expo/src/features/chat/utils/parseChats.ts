@@ -1,28 +1,26 @@
 import { ROLE } from '../constants';
-import type { AssistantChat, Chat, ParsedChat, UserChat } from '../types';
+import type { CBTRecommendationChat, Chat, ChatUI } from '../types';
+import { CHAT_TYPE } from '../types/chat-type';
 
-export function parseChats(chats: Chat[]): ParsedChat[] {
-  const stack: ParsedChat[] = [];
+export const parseChats = (
+  chats: (Chat | CBTRecommendationChat)[],
+): ChatUI[] => {
+  const stack: ChatUI[] = [];
 
   for (const chat of chats) {
-    if (chat.sender === ROLE.USER) {
-      stack.push(chat as UserChat);
-      continue;
-    }
-
-    const lastItem = stack[stack.length - 1];
-    if (!lastItem || lastItem.sender === ROLE.USER) {
+    if (chat.type === CHAT_TYPE.CHAT && chat.sender === ROLE.AI) {
+      const messages = chat.message.split(/(?<=[!?.])\s*/);
       stack.push({
+        type: CHAT_TYPE.CHAT,
         sender: ROLE.AI,
-        messages: [chat.message],
+        messages,
         time: chat.time,
       });
       continue;
     }
 
-    const lastAssistant = lastItem as AssistantChat;
-    lastAssistant.messages.unshift(chat.message);
+    stack.push(chat as ChatUI);
   }
 
   return stack;
-}
+};

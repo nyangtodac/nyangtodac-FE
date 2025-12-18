@@ -2,10 +2,11 @@ import { API_KEY, chatAPI } from '@src/lib/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { ROLE } from '../constants';
-import type { Chat } from '../types';
+import type { CBTRecommendationChat, Chat } from '../types';
+import { CHAT_TYPE } from '../types/chat-type';
 
 interface UseChatMessagesReturn {
-  chats: Chat[];
+  chats: (Chat | CBTRecommendationChat)[];
   isChatLoading: boolean;
   sendMessage: (message: string) => void;
 }
@@ -13,7 +14,7 @@ interface UseChatMessagesReturn {
 export function useChatMessages(): UseChatMessagesReturn {
   const queryClient = useQueryClient();
 
-  const { data: chats } = useQuery<Chat[]>({
+  const { data: chats } = useQuery<(Chat | CBTRecommendationChat)[]>({
     queryKey: [API_KEY.CHATS],
     queryFn: () => chatAPI.getChatHistory(),
   });
@@ -27,10 +28,18 @@ export function useChatMessages(): UseChatMessagesReturn {
       const chatSnapshot = queryClient.getQueryData<Chat[]>([API_KEY.CHATS]);
 
       // chats 쿼리에 새로운 메시지 낙관적 업데이트
-      queryClient.setQueryData<Chat[]>([API_KEY.CHATS], (old) => [
-        { sender: ROLE.USER, message, time: new Date().toISOString() },
-        ...(old || []),
-      ]);
+      queryClient.setQueryData<(Chat | CBTRecommendationChat)[]>(
+        [API_KEY.CHATS],
+        (old) => [
+          {
+            type: CHAT_TYPE.CHAT,
+            sender: ROLE.USER,
+            message,
+            time: new Date().toISOString(),
+          },
+          ...(old || []),
+        ],
+      );
 
       // 스냅샷 반환
       return { chatSnapshot };
