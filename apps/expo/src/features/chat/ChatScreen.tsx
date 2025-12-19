@@ -10,51 +10,40 @@ import {
 import { useChat, useChatKeyboard } from './hooks';
 
 export default function ChatScreen() {
-  const {
-    inputRef,
-    flatListRef,
-    isChatModalVisible,
-    message,
-    chats,
-    setMessage,
-    handleBack,
-    handleInputFocus,
-    handleSend,
-    setIsChatModalVisible,
-    isChatLoading,
-  } = useChat();
-
+  const { input, list, modal, handlers } = useChat();
   const { inputAnimatedStyle } = useChatKeyboard();
 
   return (
     <>
-      <ChatOverlay visible={isChatModalVisible} />
+      <ChatOverlay visible={modal.isChatModalVisible} />
 
       <Pressable
         className="flex flex-1 flex-col justify-end w-full"
-        onPress={() => inputRef.current?.blur()}
+        onPress={() => input.inputRef.current?.blur()}
       >
-        {isChatModalVisible && <ChatModalHeader onBack={handleBack} />}
+        {modal.isChatModalVisible && (
+          <ChatModalHeader onBack={handlers.handleBack} />
+        )}
 
         <Animated.View
           className="flex flex-1 flex-col justify-end px-4"
           style={[inputAnimatedStyle]}
         >
-          {isChatModalVisible && (
+          {modal.isChatModalVisible && (
             <ChatList
-              ref={flatListRef}
-              chats={chats}
-              isChatLoading={isChatLoading}
+              ref={list.flatListRef}
+              chats={list.chats}
+              isChatLoading={list.isChatLoading}
             />
           )}
           <ChatInputBar
-            ref={inputRef}
-            message={message}
-            onMessageChange={setMessage}
-            onFocus={handleInputFocus}
-            onSend={handleSend}
-            isChatModalVisible={isChatModalVisible}
-            setIsChatModalVisible={setIsChatModalVisible}
+            ref={input.inputRef}
+            message={input.message}
+            onMessageChange={input.setMessage}
+            onFocus={handlers.handleInputFocus}
+            onSend={handlers.handleSend}
+            isChatModalVisible={modal.isChatModalVisible}
+            setIsChatModalVisible={modal.setIsChatModalVisible}
           />
         </Animated.View>
       </Pressable>
