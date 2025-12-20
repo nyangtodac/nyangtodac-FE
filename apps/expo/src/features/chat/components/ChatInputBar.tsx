@@ -4,6 +4,8 @@ import { ICONS_SIZE } from '@src/lib/styles';
 import { Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
+import { useChatModal } from '../context';
+
 interface ChatInputBarProps {
   /** 현재 메시지 텍스트 */
   message: string;
@@ -16,9 +18,6 @@ interface ChatInputBarProps {
   /** TextInput ref */
   ref: React.RefObject<TextInput | null>;
   /** 채팅 모달 표시 여부 */
-  isChatModalVisible: boolean;
-  /** 채팅 모달 표시 설정 */
-  setIsChatModalVisible: (visible: boolean) => void;
   /** CBT 추천 요청 핸들러 */
   getCBTRecommendation: () => void;
   /** CBT 추천 모달 표시 여부 */
@@ -31,15 +30,15 @@ export default function ChatInputBar({
   onFocus,
   onSend,
   ref,
-  isChatModalVisible,
-  setIsChatModalVisible,
   getCBTRecommendation,
   isRecommandationModalVisible,
 }: ChatInputBarProps) {
+  const { isChatModalVisible, openModal } = useChatModal();
+
   const handlePress = async () => {
     if (isChatModalVisible) return;
 
-    setIsChatModalVisible(!isChatModalVisible);
+    openModal();
     await new Promise((resolve) => setTimeout(resolve, 500));
     ref?.current?.focus();
   };

@@ -4,6 +4,7 @@ import { ActivityIndicator, View } from '@src/components/ui';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { ROLE } from '../constants';
+import { useChatModal } from '../context';
 import type {
   AssistantChatUI,
   CBTRecommendation,
@@ -33,6 +34,8 @@ export default function ChatList({
   recommandationModalHeight,
   isRecommandationModalVisible,
 }: ChatListProps) {
+  const { isChatModalVisible } = useChatModal();
+
   const parsedChats = useMemo(() => parseChats(chats), [chats]);
 
   const renderChatItem = ({ item: chat }: { item: ChatUI }) => {
@@ -54,6 +57,8 @@ export default function ChatList({
       </View>
     );
   };
+
+  if (!isChatModalVisible) return null;
 
   return (
     <>

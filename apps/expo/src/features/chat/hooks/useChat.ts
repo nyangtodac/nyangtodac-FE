@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
+import { useChatModal } from '../context';
 import type { ChatAPI } from '../types';
 import { useChatInput } from './useChatInput';
 import { useChatMessages } from './useChatMessages';
-import { useChatModal } from './useChatModal';
 
 /** 입력 관련 상태 */
 interface ChatInputState {
@@ -28,12 +28,6 @@ interface ChatListState {
   isChatLoading: boolean;
 }
 
-/** 모달 관련 상태 */
-interface ChatModalState {
-  isChatModalVisible: boolean;
-  setIsChatModalVisible: (visible: boolean) => void;
-}
-
 /** 핸들러 */
 interface ChatHandlers {
   handleBack: () => void;
@@ -44,11 +38,12 @@ interface ChatHandlers {
 interface UseChatReturn {
   input: ChatInputState;
   list: ChatListState;
-  modal: ChatModalState;
   handlers: ChatHandlers;
 }
 
 export function useChat(): UseChatReturn {
+  const { openModal, closeModal } = useChatModal();
+
   const {
     chats,
     isChatLoading,
@@ -57,8 +52,6 @@ export function useChat(): UseChatReturn {
     getCBTRecommendation,
   } = useChatMessages();
 
-  const { isChatModalVisible, setIsChatModalVisible, closeModal, openModal } =
-    useChatModal();
   const {
     inputRef,
     flatListRef,
@@ -100,10 +93,6 @@ export function useChat(): UseChatReturn {
       flatListRef,
       chats,
       isChatLoading,
-    },
-    modal: {
-      isChatModalVisible,
-      setIsChatModalVisible,
     },
     handlers: {
       handleBack,

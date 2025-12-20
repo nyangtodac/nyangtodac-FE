@@ -9,6 +9,7 @@ import {
   ChatModalHeader,
   ChatOverlay,
 } from './components';
+import { ChatModalProvider } from './context';
 import { useChat, useChatKeyboard } from './hooks';
 
 type CBTType =
@@ -25,37 +26,41 @@ const CBT_LABELS: Record<CBTType, string> = {
 };
 
 export default function ChatScreen() {
-  const { input, list, modal, handlers } = useChat();
+  return (
+    <ChatModalProvider>
+      <ChatContent />
+    </ChatModalProvider>
+  );
+}
+
+function ChatContent() {
+  const { input, list, handlers } = useChat();
   const { inputAnimatedStyle } = useChatKeyboard();
 
   const [recommandationModalHeight, setRecommandationModalHeight] = useState(0);
 
   return (
     <>
-      <ChatOverlay visible={modal.isChatModalVisible} />
+      <ChatOverlay />
 
       <Pressable
         className="flex flex-1 flex-col justify-end w-full"
         onPress={() => input.inputRef.current?.blur()}
       >
-        {modal.isChatModalVisible && (
-          <ChatModalHeader onBack={handlers.handleBack} />
-        )}
+        <ChatModalHeader onBack={handlers.handleBack} />
 
         <Animated.View
           className="flex flex-1 flex-col justify-end px-4"
           style={[inputAnimatedStyle]}
         >
           <View className="relative flex-1">
-            {modal.isChatModalVisible && (
-              <ChatList
-                ref={list.flatListRef}
-                chats={list.chats}
-                isChatLoading={list.isChatLoading}
-                recommandationModalHeight={recommandationModalHeight}
-                isRecommandationModalVisible={!!input.cbtRecommendation}
-              />
-            )}
+            <ChatList
+              ref={list.flatListRef}
+              chats={list.chats}
+              isChatLoading={list.isChatLoading}
+              recommandationModalHeight={recommandationModalHeight}
+              isRecommandationModalVisible={!!input.cbtRecommendation}
+            />
             {input.cbtRecommendation && (
               <View
                 className="w-full bg-red-100 rounded-2xl p-5 absolute bottom-0 left-0 right-0"
@@ -93,8 +98,6 @@ export default function ChatScreen() {
             onMessageChange={input.setMessage}
             onFocus={handlers.handleInputFocus}
             onSend={handlers.handleSend}
-            isChatModalVisible={modal.isChatModalVisible}
-            setIsChatModalVisible={modal.setIsChatModalVisible}
             getCBTRecommendation={input.getCBTRecommendation}
             isRecommandationModalVisible={!!input.cbtRecommendation}
           />
