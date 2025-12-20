@@ -4,7 +4,7 @@ import { ICONS_SIZE } from '@src/lib/styles';
 import { Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import { useChatModal } from '../../context';
+import { useCBTModal, useChatModal } from '../../context';
 import { ChatHandlers, ChatInputState } from '../../hooks/useChat';
 
 interface ChatInputBarProps {
@@ -13,23 +13,18 @@ interface ChatInputBarProps {
 }
 
 export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
-  const {
-    inputRef,
-    message,
-    setMessage,
-    cbtRecommendation,
-    getCBTRecommendation,
-  } = input;
+  const { inputRef, message, setMessage, cbtRecommendation } = input;
   const isCBTRecommendation = !!cbtRecommendation;
 
   const { handleInputFocus, handleSend } = handlers;
 
-  const { isChatModalVisible, openModal } = useChatModal();
+  const { openModal: openCBTModal } = useCBTModal();
+  const { isChatModalVisible, openModal: openChatModal } = useChatModal();
 
   const handlePress = async () => {
     if (isChatModalVisible) return;
 
-    openModal();
+    openChatModal();
     await new Promise((resolve) => setTimeout(resolve, 500));
     inputRef?.current?.focus();
   };
@@ -55,7 +50,7 @@ export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
         onPress={() => {
           if (!isChatModalVisible) return;
 
-          getCBTRecommendation();
+          openCBTModal();
         }}
         className="bg-neutral-600 aspect-square rounded-full p-3"
       >
