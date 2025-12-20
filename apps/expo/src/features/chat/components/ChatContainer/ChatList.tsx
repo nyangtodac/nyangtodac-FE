@@ -5,12 +5,8 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import { ROLE } from '../../constants';
 import { useChatModal } from '../../context';
-import type {
-  AssistantChatUI,
-  CBTRecommendation,
-  ChatAPI,
-  ChatUI,
-} from '../../types';
+import { ChatInputState, ChatListState } from '../../hooks/useChat';
+import type { AssistantChatUI, CBTRecommendation, ChatUI } from '../../types';
 import { CHAT_TYPE } from '../../types/chat-type';
 import { parseChats } from '../../utils';
 import {
@@ -20,20 +16,21 @@ import {
 } from '../ChatItem';
 
 interface ChatListProps {
-  chats: ChatAPI;
-  isChatLoading: boolean;
-  ref: React.RefObject<FlatList | null>;
+  list: ChatListState;
+  input: ChatInputState;
   recommandationModalHeight: number;
-  isRecommandationModalVisible: boolean;
 }
 
 export default function ChatList({
-  chats,
-  isChatLoading,
-  ref,
+  list,
+  input,
   recommandationModalHeight,
-  isRecommandationModalVisible,
 }: ChatListProps) {
+  const { chats, isChatLoading, flatListRef } = list;
+  const { cbtRecommendation } = input;
+
+  const isCBTRecommendation = !!cbtRecommendation;
+
   const { isChatModalVisible } = useChatModal();
 
   const parsedChats = useMemo(() => parseChats(chats), [chats]);
@@ -63,7 +60,7 @@ export default function ChatList({
   return (
     <>
       <FlatList
-        ref={ref}
+        ref={flatListRef}
         data={parsedChats}
         inverted={true}
         style={{ flex: 1 }}
@@ -71,9 +68,7 @@ export default function ChatList({
           flexGrow: 1,
           justifyContent: 'flex-start',
           gap: 16,
-          paddingTop: isRecommandationModalVisible
-            ? recommandationModalHeight
-            : 0,
+          paddingTop: isCBTRecommendation ? recommandationModalHeight : 0,
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}

@@ -26,6 +26,9 @@ export default function ChatContainer({
   input,
   handlers,
 }: UseChatReturn) {
+  const { cbtRecommendation } = input;
+  const isCBTRecommendation = !!cbtRecommendation;
+
   const { inputAnimatedStyle } = useChatKeyboard();
 
   const [recommandationModalHeight, setRecommandationModalHeight] = useState(0);
@@ -37,13 +40,11 @@ export default function ChatContainer({
     >
       <View className="relative flex-1">
         <ChatList
-          ref={list.flatListRef}
-          chats={list.chats}
-          isChatLoading={list.isChatLoading}
+          list={list}
+          input={input}
           recommandationModalHeight={recommandationModalHeight}
-          isRecommandationModalVisible={!!input.cbtRecommendation}
         />
-        {input.cbtRecommendation && (
+        {isCBTRecommendation && (
           <View
             className="w-full bg-red-100 rounded-2xl p-5 absolute bottom-0 left-0 right-0"
             onLayout={(e) => {
@@ -54,7 +55,7 @@ export default function ChatContainer({
             }}
           >
             <Text className="text-body text-primary font-medium text-center mb-4">
-              {CBT_LABELS[input.cbtRecommendation]}을 해보시겠어요?
+              {CBT_LABELS[cbtRecommendation]}을 해보시겠어요?
             </Text>
             <View className="flex flex-row gap-3">
               <View className="flex-1">
@@ -78,13 +79,8 @@ export default function ChatContainer({
         )}
       </View>
       <ChatInputBar
-        ref={input.inputRef}
-        message={input.message}
-        onMessageChange={input.setMessage}
-        onFocus={handlers.handleInputFocus}
-        onSend={handlers.handleSend}
-        getCBTRecommendation={input.getCBTRecommendation}
-        isRecommandationModalVisible={!!input.cbtRecommendation}
+        input={input}
+        handlers={handlers}
       />
     </Animated.View>
   );
