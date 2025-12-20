@@ -8,7 +8,7 @@ import { useChatInput } from './useChatInput';
 import { useChatMessages } from './useChatMessages';
 
 /** 입력 관련 상태 */
-interface ChatInputState {
+export interface ChatInputState {
   inputRef: React.RefObject<TextInput | null>;
   message: string;
   setMessage: (text: string) => void;
@@ -22,20 +22,20 @@ interface ChatInputState {
 }
 
 /** 채팅 리스트 관련 상태 */
-interface ChatListState {
+export interface ChatListState {
   flatListRef: React.RefObject<FlatList | null>;
   chats: ChatAPI;
   isChatLoading: boolean;
 }
 
 /** 핸들러 */
-interface ChatHandlers {
+export interface ChatHandlers {
   handleBack: () => void;
   handleInputFocus: () => void;
   handleSend: () => void;
 }
 
-interface UseChatReturn {
+export interface UseChatReturn {
   input: ChatInputState;
   list: ChatListState;
   handlers: ChatHandlers;

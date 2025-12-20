@@ -4,7 +4,7 @@ import { ICONS_SIZE } from '@src/lib/styles';
 import { Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import { useChatModal } from '../context';
+import { useChatModal } from '../../context';
 
 interface ChatInputBarProps {
   /** 현재 메시지 텍스트 */

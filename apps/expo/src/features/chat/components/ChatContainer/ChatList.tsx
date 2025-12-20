@@ -3,21 +3,21 @@ import { useMemo } from 'react';
 import { ActivityIndicator, View } from '@src/components/ui';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { ROLE } from '../constants';
-import { useChatModal } from '../context';
+import { ROLE } from '../../constants';
+import { useChatModal } from '../../context';
 import type {
   AssistantChatUI,
   CBTRecommendation,
   ChatAPI,
   ChatUI,
-} from '../types';
-import { CHAT_TYPE } from '../types/chat-type';
-import { parseChats } from '../utils';
+} from '../../types';
+import { CHAT_TYPE } from '../../types/chat-type';
+import { parseChats } from '../../utils';
 import {
   AssistantChatBox,
   CBTRecommendationBox,
   UserChatBox,
-} from './ChatItem';
+} from '../ChatItem';
 
 interface ChatListProps {
   chats: ChatAPI;
