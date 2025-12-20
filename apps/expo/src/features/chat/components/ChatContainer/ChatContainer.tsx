@@ -46,9 +46,12 @@ export default function ChatContainer({
         {input.cbtRecommendation && (
           <View
             className="w-full bg-red-100 rounded-2xl p-5 absolute bottom-0 left-0 right-0"
-            onLayout={(e) =>
-              setRecommandationModalHeight(e.nativeEvent.layout.height)
-            }
+            onLayout={(e) => {
+              const newHeight = e.nativeEvent.layout.height;
+              setRecommandationModalHeight((prev) =>
+                prev === newHeight ? prev : newHeight,
+              );
+            }}
           >
             <Text className="text-body text-primary font-medium text-center mb-4">
               {CBT_LABELS[input.cbtRecommendation]}을 해보시겠어요?
