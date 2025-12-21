@@ -1,13 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import Slider from '@react-native-community/slider';
 import { Modal, Pressable, Text, View } from '@src/components/ui';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, {
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
 
 import colors from '@nyangtodac/tailwind-design-tokens/colors';
 
@@ -40,13 +35,6 @@ const SYMPTOM_OPTIONS: { value: SymptomType; label: string }[] = [
 ];
 
 const INTENSITY_LEVELS = [1, 2, 3, 4, 5];
-const INTENSITY_LABELS: Record<number, string> = {
-  1: '조금',
-  2: '약간',
-  3: '보통',
-  4: '심함',
-  5: '매우 심함',
-};
 
 const TRIGGER_OPTIONS: { value: TriggerType; label: string }[] = [
   { value: 'PRESENTATION_EXAM', label: '발표/시험' },
@@ -55,12 +43,6 @@ const TRIGGER_OPTIONS: { value: TriggerType; label: string }[] = [
   { value: 'FUTURE_MONEY', label: '미래/돈' },
   { value: 'UNKNOWN', label: '이유모름' },
 ];
-
-// Slider constants
-const SLIDER_WIDTH = 280;
-const THUMB_SIZE = 28;
-const STEP_COUNT = 5;
-const STEP_WIDTH = (SLIDER_WIDTH - THUMB_SIZE) / (STEP_COUNT - 1);
 
 export default function CBTRecommendModal({
   ref,
@@ -137,7 +119,7 @@ export default function CBTRecommendModal({
             onPress={() => setSymptom(option.value)}
             className={`py-4 px-5 rounded-2xl border-2 ${
               selections.symptom === option.value
-                ? 'bg-neutral-600 border-neutral-700'
+                ? 'bg-neutral-600 border-neutral-650'
                 : 'bg-neutral-100 border-neutral-300'
             }`}
           >
@@ -157,124 +139,60 @@ export default function CBTRecommendModal({
   );
 
   // Step 2: 강도 선택 (슬라이더)
-  const sliderPosition = useSharedValue(
-    (selections.intensity - 1) * STEP_WIDTH,
-  );
-
-  const updateIntensity = useCallback(
-    (position: number) => {
-      const step = Math.round(position / STEP_WIDTH) + 1;
-      const clampedStep = Math.max(1, Math.min(5, step));
-      if (clampedStep !== selections.intensity) {
-        setIntensity(clampedStep);
+  const handleSliderChange = useCallback(
+    (value: number) => {
+      const roundedValue = Math.round(value);
+      if (roundedValue !== selections.intensity) {
+        setIntensity(roundedValue);
       }
     },
     [selections.intensity, setIntensity],
   );
 
-  const panGesture = Gesture.Pan()
-    .onUpdate((event) => {
-      const newPosition = Math.max(
-        0,
-        Math.min(SLIDER_WIDTH - THUMB_SIZE, event.x - THUMB_SIZE / 2),
-      );
-      sliderPosition.value = newPosition;
-      runOnJS(updateIntensity)(newPosition);
-    })
-    .onEnd(() => {
-      const snappedStep = Math.round(sliderPosition.value / STEP_WIDTH);
-      sliderPosition.value = snappedStep * STEP_WIDTH;
-    });
-
-  const tapGesture = Gesture.Tap().onEnd((event) => {
-    const newPosition = Math.max(
-      0,
-      Math.min(SLIDER_WIDTH - THUMB_SIZE, event.x - THUMB_SIZE / 2),
-    );
-    const snappedStep = Math.round(newPosition / STEP_WIDTH);
-    sliderPosition.value = snappedStep * STEP_WIDTH;
-    runOnJS(updateIntensity)(snappedStep * STEP_WIDTH);
-  });
-
-  const composedGesture = Gesture.Race(panGesture, tapGesture);
-
-  const thumbStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: sliderPosition.value }],
-  }));
-
-  const activeTrackStyle = useAnimatedStyle(() => ({
-    width: sliderPosition.value + THUMB_SIZE / 2,
-  }));
-
   const renderStep2 = () => (
-    <View className="flex flex-col gap-4">
+    <View className="flex flex-col gap-2">
       <Text className="text-body-large text-neutral-900 text-center font-medium">
         지금 느끼는 불안의 강도는 어때?
       </Text>
-      <Text className="text-body-small text-neutral-500 text-center">
+      <Text className="text-body-medium text-neutral-650 text-center">
         1부터 5까지, 숫자가 클수록 강해요
       </Text>
 
       {/* 슬라이더 */}
-      <View className="items-center mt-6">
-        <GestureDetector gesture={composedGesture}>
-          <View
-            style={{ width: SLIDER_WIDTH, height: 40 }}
-            className="justify-center"
-          >
-            {/* 트랙 배경 */}
-            <View
-              style={{ width: SLIDER_WIDTH, height: 6 }}
-              className="bg-neutral-300 rounded-full absolute"
-            />
-            {/* 활성 트랙 */}
-            <Animated.View
-              style={[{ height: 6 }, activeTrackStyle]}
-              className="bg-neutral-600 rounded-full absolute"
-            />
-            {/* 스텝 점들 */}
-            <View className="absolute flex-row justify-between w-full px-[10px]">
-              {INTENSITY_LEVELS.map((level) => (
-                <View
-                  key={level}
-                  className={`w-2 h-2 rounded-full ${
-                    level <= selections.intensity
-                      ? 'bg-neutral-700'
-                      : 'bg-neutral-400'
-                  }`}
-                />
-              ))}
-            </View>
-            {/* 썸 */}
-            <Animated.View
-              style={[
-                {
-                  width: THUMB_SIZE,
-                  height: THUMB_SIZE,
-                  position: 'absolute',
-                },
-                thumbStyle,
-              ]}
-              className="bg-white rounded-full border-2 border-neutral-600 shadow-md items-center justify-center"
-            >
-              <Text className="text-body-small font-bold text-neutral-700">
-                {selections.intensity}
-              </Text>
-            </Animated.View>
-          </View>
-        </GestureDetector>
+      <View className="items-center mt-6 w-full px-2">
+        {/* 슬라이더 */}
+        <Slider
+          style={{ width: '100%', height: 50 }}
+          minimumValue={1}
+          maximumValue={5}
+          step={1}
+          value={selections.intensity}
+          onValueChange={handleSliderChange}
+          minimumTrackTintColor={colors.neutral[600]}
+          maximumTrackTintColor={colors.neutral[300]}
+          thumbTintColor={colors.neutral[700]}
+        />
 
-        {/* 라벨 */}
-        <View className="flex-row justify-between w-full mt-3 px-1">
-          <Text className="text-body-small text-neutral-500">조금</Text>
-          <Text className="text-body-small text-neutral-500">매우 심함</Text>
+        {/* 스텝 숫자 라벨 */}
+        <View className="flex-row justify-between w-full px-1 mt-2">
+          {INTENSITY_LEVELS.map((level) => (
+            <Text
+              key={level}
+              className={`text-body-medium font-medium ${
+                level === selections.intensity
+                  ? 'text-neutral-900'
+                  : 'text-neutral-500'
+              }`}
+            >
+              {level}
+            </Text>
+          ))}
         </View>
 
-        {/* 선택된 강도 표시 */}
-        <View className="items-center mt-4">
-          <Text className="text-body-medium text-neutral-700 font-semibold">
-            {INTENSITY_LABELS[selections.intensity]}
-          </Text>
+        {/* 라벨 */}
+        <View className="flex-row justify-between w-full mt-1 px-1">
+          <Text className="text-body-medium text-neutral-650">조금</Text>
+          <Text className="text-body-medium text-neutral-650">매우 심함</Text>
         </View>
       </View>
     </View>
@@ -361,7 +279,7 @@ export default function CBTRecommendModal({
           >
             <Text
               className={`text-body-medium font-semibold ${
-                isNextDisabled() ? 'text-neutral-900' : 'text-black'
+                isNextDisabled() ? 'opacity-20' : 'opacity-100'
               }`}
             >
               {getButtonText()}
