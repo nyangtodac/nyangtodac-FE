@@ -17,7 +17,14 @@ interface ChatInputBarProps {
 }
 
 export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
-  const { inputRef, message, setMessage, cbtRecommendation } = input;
+  const {
+    blurInput,
+    inputRef,
+    message,
+    setMessage,
+    cbtRecommendation,
+    getCBTRecommendation,
+  } = input;
   const isCBTRecommendation = !!cbtRecommendation;
 
   const { handleInputFocus, handleSend } = handlers;
@@ -26,6 +33,7 @@ export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
   const { isChatModalVisible, openModal: openChatModal } = useChatModal();
 
   const openCBTModal = () => {
+    blurInput();
     cbtModalRef.current?.present();
   };
 
@@ -99,7 +107,10 @@ export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
           className="pr-4"
         />
       </Pressable>
-      <CBTRecommendModal modalRef={cbtModalRef} />
+      <CBTRecommendModal
+        modalRef={cbtModalRef}
+        onComplete={getCBTRecommendation}
+      />
     </Pressable>
   );
 }
