@@ -5,6 +5,7 @@ import { Modal, Pressable, Text, View } from '@src/components/ui';
 
 import colors from '@nyangtodac/tailwind-design-tokens/colors';
 
+import { CBT_STEP, CBT_STEPS } from '../../constants';
 import { useCBTStep } from '../../hooks';
 import { CBTSelections } from '../../types';
 import IntensityStep from './IntensityStep';
@@ -50,7 +51,7 @@ export default function CBTRecommendModal({
       <BottomSheetView className="px-5 pt-2 pb-14">
         {/* 스텝 인디케이터 */}
         <View className="flex flex-row justify-center gap-2 mb-5">
-          {[1, 2, 3].map((step) => (
+          {CBT_STEPS.map((step) => (
             <View
               key={step}
               className={`w-2 h-2 rounded-full ${
@@ -61,20 +62,20 @@ export default function CBTRecommendModal({
         </View>
 
         {/* 스텝별 컴포넌트 */}
-        {currentStep === 1 && (
+        {currentStep === CBT_STEP.SYMPTOM && (
           <SymptomStep
             selectedSymptom={selections.symptom}
             onSelect={setSymptom}
           />
         )}
-        {currentStep === 2 && (
+        {currentStep === CBT_STEP.INTENSITY && (
           <IntensityStep
             symptom={selections.symptom}
             intensity={selections.intensity}
             onIntensityChange={setIntensity}
           />
         )}
-        {currentStep === 3 && (
+        {currentStep === CBT_STEP.TRIGGER && (
           <TriggerStep
             selectedTrigger={selections.trigger}
             onSelect={setTrigger}

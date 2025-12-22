@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import { CBT_STEP, CBT_TOTAL_STEPS } from '../constants';
 import {
   CBTSelections,
   IntensityLevel,
@@ -8,20 +9,18 @@ import {
   initialSelections,
 } from '../types';
 
-const TOTAL_STEPS = 3;
-
 export function useCBTStep(onComplete: (selections: CBTSelections) => void) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<number>(CBT_STEP.SYMPTOM);
   const [selections, setSelections] =
     useState<CBTSelections>(initialSelections);
 
   const reset = useCallback(() => {
-    setCurrentStep(1);
+    setCurrentStep(CBT_STEP.SYMPTOM);
     setSelections(initialSelections);
   }, []);
 
   const nextStep = useCallback(() => {
-    if (currentStep < TOTAL_STEPS) {
+    if (currentStep < CBT_TOTAL_STEPS) {
       setCurrentStep((prev) => prev + 1);
       return false;
     }
@@ -43,18 +42,18 @@ export function useCBTStep(onComplete: (selections: CBTSelections) => void) {
 
   const isNextDisabled = useMemo(() => {
     switch (currentStep) {
-      case 1:
+      case CBT_STEP.SYMPTOM:
         return selections.symptom === null;
-      case 2:
+      case CBT_STEP.INTENSITY:
         return false;
-      case 3:
+      case CBT_STEP.TRIGGER:
         return selections.trigger === null;
       default:
         return true;
     }
   }, [currentStep, selections.symptom, selections.trigger]);
 
-  const isLastStep = currentStep === TOTAL_STEPS;
+  const isLastStep = currentStep === CBT_TOTAL_STEPS;
 
   return {
     currentStep,
