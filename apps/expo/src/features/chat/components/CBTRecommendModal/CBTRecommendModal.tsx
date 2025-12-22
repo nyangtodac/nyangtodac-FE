@@ -5,7 +5,7 @@ import { Modal, Pressable, Text, View } from '@src/components/ui';
 
 import colors from '@nyangtodac/tailwind-design-tokens/colors';
 
-import { CBT_STEP, CBT_STEPS } from '../../constants';
+import { CBT_MODAL_MESSAGES, CBT_STEP, CBT_STEPS } from '../../constants';
 import { useCBTStep } from '../../hooks';
 import { CBTSelections } from '../../types';
 import IntensityStep from './IntensityStep';
@@ -94,7 +94,9 @@ export default function CBTRecommendModal({
                 isNextDisabled ? 'opacity-20' : 'opacity-100'
               }`}
             >
-              {isLastStep ? '선택완료' : '다음'}
+              {isLastStep
+                ? CBT_MODAL_MESSAGES.BUTTON.COMPLETE
+                : CBT_MODAL_MESSAGES.BUTTON.NEXT}
             </Text>
           </Pressable>
         </View>

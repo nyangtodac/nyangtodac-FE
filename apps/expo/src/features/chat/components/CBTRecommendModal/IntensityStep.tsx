@@ -3,6 +3,7 @@ import { Text, View } from '@src/components/ui';
 
 import colors from '@nyangtodac/tailwind-design-tokens/colors';
 
+import { CBT_MODAL_MESSAGES } from '../../constants';
 import {
   INTENSITY_LABELS,
   INTENSITY_LEVELS,
@@ -24,8 +25,8 @@ export default function IntensityStep({
 }: IntensityStepProps) {
   const title =
     symptom === 'BODY'
-      ? '몸이 견디기 얼마나 힘든 상태야?'
-      : '그 마음의 무게가 어느 정도야?';
+      ? CBT_MODAL_MESSAGES.STEP.INTENSITY.TITLE_BODY
+      : CBT_MODAL_MESSAGES.STEP.INTENSITY.TITLE_MIND;
 
   const subtitle = symptom ? INTENSITY_LABELS[symptom][intensity] : '';
 
@@ -68,8 +69,12 @@ export default function IntensityStep({
         </View>
 
         <View className="flex-row justify-between w-full mt-3 px-1">
-          <Text className="text-body-medium text-neutral-650">가벼움</Text>
-          <Text className="text-body-medium text-neutral-650">무거움</Text>
+          <Text className="text-body-medium text-neutral-650">
+            {CBT_MODAL_MESSAGES.STEP.INTENSITY.SUBTITLE_LIGHT}
+          </Text>
+          <Text className="text-body-medium text-neutral-650">
+            {CBT_MODAL_MESSAGES.STEP.INTENSITY.SUBTITLE_HEAVY}
+          </Text>
         </View>
       </View>
     </StepLayout>

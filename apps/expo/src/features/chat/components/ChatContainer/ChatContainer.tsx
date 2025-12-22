@@ -3,23 +3,11 @@ import { useState } from 'react';
 import { Button, Text, View } from '@src/components/ui';
 import Animated from 'react-native-reanimated';
 
+import { CHAT_MESSAGES } from '../../constants';
 import { useChatKeyboard } from '../../hooks';
 import { UseChatReturn } from '../../hooks/useChat';
 import ChatInputBar from './ChatInputBar';
 import ChatList from './ChatList';
-
-type CBTType =
-  | 'BREATHING'
-  | 'CALMING_PHRASE'
-  | 'GROUNDING'
-  | 'COGNITIVE_REFRAME';
-
-const CBT_LABELS: Record<CBTType, string> = {
-  BREATHING: '호흡 운동',
-  CALMING_PHRASE: '진정 문구',
-  GROUNDING: '그라운딩',
-  COGNITIVE_REFRAME: '인지 재구성',
-};
 
 export default function ChatContainer({
   list,
@@ -59,12 +47,13 @@ export default function ChatContainer({
             }}
           >
             <Text className="text-body-large text-primary font-medium text-start mb-3">
-              {CBT_LABELS[cbtRecommendation]}을 해보시겠어요?
+              {CHAT_MESSAGES.CBT_TYPE_LABELS[cbtRecommendation]}
+              {CHAT_MESSAGES.CBT_RECOMMENDATION.QUESTION_SUFFIX}
             </Text>
             <View className="flex flex-row gap-3">
               <View className="flex-1">
                 <Button
-                  text="괜찮아요"
+                  text={CHAT_MESSAGES.CBT_RECOMMENDATION.BUTTON_REJECT}
                   color="secondary"
                   size="default"
                   onPress={rejectCBTRecommendation}
@@ -73,7 +62,7 @@ export default function ChatContainer({
               </View>
               <View className="flex-1">
                 <Button
-                  text="좋아요"
+                  text={CHAT_MESSAGES.CBT_RECOMMENDATION.BUTTON_ACCEPT}
                   color="primary"
                   size="default"
                   onPress={() => acceptCBTRecommendation(cbtRecommendation)}
