@@ -1,3 +1,4 @@
+export { useCBTStep } from './useCBTStep';
 export { useChat } from './useChat';
 export { useChatInput } from './useChatInput';
 export { useChatKeyboard } from './useChatKeyboard';

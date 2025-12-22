@@ -7,6 +7,7 @@ import { ICONS_SIZE } from '@src/lib/styles';
 import { Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
+import { CHAT_MESSAGES } from '../../constants';
 import { useChatModal } from '../../context';
 import { ChatHandlers, ChatInputState } from '../../hooks/useChat';
 import { CBTRecommendModal } from '../CBTRecommendModal';
@@ -84,7 +85,7 @@ export default function ChatInputBar({ input, handlers }: ChatInputBarProps) {
           ref={inputRef}
           className="bg-chat-input rounded-xl px-2 text-white grow focus:border-input-focus"
           style={{ fontSize: 17, height: 30 }}
-          placeholder="메시지를 입력해주세요"
+          placeholder={CHAT_MESSAGES.INPUT_PLACEHOLDER}
           placeholderTextColor="rgba(255, 255, 255, 0.50)"
           onFocus={handleInputFocus}
           value={message}

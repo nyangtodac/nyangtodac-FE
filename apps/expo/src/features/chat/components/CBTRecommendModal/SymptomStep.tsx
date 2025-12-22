@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from '@src/components/ui';
 
+import { CBT_MODAL_MESSAGES } from '../../constants';
 import { SYMPTOM_OPTIONS, SymptomType } from '../../types';
 import StepLayout from './StepLayout';
 
@@ -13,9 +14,7 @@ export default function SymptomStep({
   onSelect,
 }: SymptomStepProps) {
   return (
-    <StepLayout
-      title={`지금 혹시 숨쉬기가 힘들거나\n몸이 제멋대로 반응하고 있어?`}
-    >
+    <StepLayout title={CBT_MODAL_MESSAGES.STEP.SYMPTOM.TITLE}>
       <View className="flex flex-col gap-3">
         {SYMPTOM_OPTIONS.map((option) => (
           <Pressable

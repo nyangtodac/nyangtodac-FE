@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from '@src/components/ui';
 
+import { CBT_MODAL_MESSAGES } from '../../constants';
 import { TRIGGER_OPTIONS, TriggerType } from '../../types';
 import StepLayout from './StepLayout';
 
@@ -14,8 +15,8 @@ export default function TriggerStep({
 }: TriggerStepProps) {
   return (
     <StepLayout
-      title="어떤 상황 때문에 불안했어?"
-      subtitle="하나를 선택해줘"
+      title={CBT_MODAL_MESSAGES.STEP.TRIGGER.TITLE}
+      subtitle={CBT_MODAL_MESSAGES.STEP.TRIGGER.SUBTITLE}
     >
       <View className="flex flex-row flex-wrap justify-center gap-3 mt-2">
         {TRIGGER_OPTIONS.map((option) => (
