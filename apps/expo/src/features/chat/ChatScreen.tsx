@@ -10,7 +10,7 @@ export default function ChatScreen() {
   const insets = useSafeAreaInsets();
   return (
     <View
-      className="flex-1"
+      className="absolute inset-0"
       style={{ paddingTop: insets.top }}
     >
       <ChatModalProvider>
