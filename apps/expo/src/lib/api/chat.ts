@@ -8,7 +8,12 @@ import {
 } from '@src/features/chat/types';
 
 import { apiClient } from './client';
-import { ROUTES } from './route';
+
+export const ROUTES = {
+  CHATS: '/chats',
+  QUOTA: '/chats/quota',
+  CBT_RECOMMENDATION: '/cbt/recommend',
+} as const;
 
 export interface QuotaResponse {
   quota: number;
