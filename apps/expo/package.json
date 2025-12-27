@@ -11,7 +11,9 @@
     "run:ios:development": "cross-env APP_ENV=development expo run:ios",
     "run:android:production": "cross-env APP_ENV=production expo run:android",
     "run:ios:production": "cross-env APP_ENV=production expo run:ios",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -19,6 +21,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@pado/i18n": "workspace:*",
     "@react-native-community/slider": "5.0.1",
+    "@react-native-google-signin/google-signin": "^16.1.1",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
@@ -28,6 +31,7 @@
     "dotenv": "^17.2.3",
     "expo": "^54.0.27",
     "expo-constants": "^18.0.11",
+    "expo-crypto": "~15.0.8",
     "expo-dev-client": "^6.0.20",
     "expo-font": "~14.0.9",
     "expo-haptics": "~15.0.7",

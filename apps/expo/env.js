@@ -15,9 +15,18 @@ dotenv.config({ path: envPath });
 const NAME = '파도';
 const VERSION = packageJson.version;
 const SLUG = 'pado';
-const SCHEME = 'pado';
+const SCHEME = [
+  'pado',
+  'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi',
+];
+const IOS_REDIRECT_URI =
+  'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi:/oauth2redirect/google';
+const IOS_GOOGLE_CLIENT_ID =
+  '259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi.apps.googleusercontent.com';
 const IOS_BUNDLE_IDENTIFIER = 'com.taewoongheo.pado';
 const ANDROID_PACKAGE = 'com.taewoongheo.pado';
+const WEB_CLIENT_ID =
+  '259176724998-vh35l79vnbvngmht1aeh8b4jlqekd6q0.apps.googleusercontent.com';
 
 // define env schema
 const client = z.object({
@@ -25,9 +34,12 @@ const client = z.object({
   NAME: z.string(),
   VERSION: z.string(),
   SLUG: z.string(),
-  SCHEME: z.string(),
+  SCHEME: z.array(z.string()),
+  IOS_REDIRECT_URI: z.string(),
+  IOS_GOOGLE_CLIENT_ID: z.string(),
   IOS_BUNDLE_IDENTIFIER: z.string(),
   ANDROID_PACKAGE: z.string(),
+  WEB_CLIENT_ID: z.string(),
 
   // add client environment variables here
   BASE_URL: z.string(),
@@ -45,8 +57,11 @@ const _clientEnv = {
   VERSION,
   SLUG,
   SCHEME,
+  IOS_REDIRECT_URI,
+  IOS_GOOGLE_CLIENT_ID,
   IOS_BUNDLE_IDENTIFIER,
   ANDROID_PACKAGE,
+  WEB_CLIENT_ID,
 
   // add client environment variables here
   BASE_URL: process.env.BASE_URL,
