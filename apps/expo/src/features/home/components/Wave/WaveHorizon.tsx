@@ -1,0 +1,110 @@
+import { Canvas, Skia } from '@shopify/react-native-skia';
+import { useWindowDimensions } from 'react-native';
+import {
+  SharedValue,
+  useDerivedValue,
+  useFrameCallback,
+  useSharedValue,
+} from 'react-native-reanimated';
+
+import {
+  BACKGROUND,
+  FOREGROUND,
+  MIDGROUND,
+  WAVE_LAYOUT,
+} from '../../constants';
+import BackgroundWave from './BackgroundWave';
+import ForegroundWave from './ForegroundWave';
+import MidgroundWave from './MidgroundWave';
+
+export function WaveHorizon(): React.ReactNode {
+  const createWavePath = (
+    clock: SharedValue<number>,
+    multiplier: number,
+    width: number,
+    amplitude: number,
+    frequency: number,
+    horizonHeight: number,
+    offset: number,
+  ) => {
+    'worklet';
+
+    const clockValue = clock.value * multiplier;
+
+    const path = Skia.Path.Make();
+
+    const verticalOffset = horizonHeight / 2 + offset;
+
+    path.moveTo(0, verticalOffset);
+
+    for (let x = 0; x <= width + 10; x += 10) {
+      const angle = (x / width) * (Math.PI * frequency) + clockValue;
+      const y = amplitude * Math.sin(angle) + verticalOffset;
+      path.lineTo(x, y);
+    }
+
+    path.lineTo(width, horizonHeight);
+    path.lineTo(0, horizonHeight);
+    path.close();
+
+    return path;
+  };
+
+  const { width } = useWindowDimensions();
+
+  const clock = useSharedValue(0);
+
+  useFrameCallback((frameInfo) => {
+    if (!frameInfo.timeSincePreviousFrame) return;
+    clock.value += frameInfo.timeSincePreviousFrame * 0.002;
+  });
+
+  const backgroundWavePath = useDerivedValue(() => {
+    return createWavePath(
+      clock,
+      BACKGROUND.SPEED_MULTIPLIER,
+      width,
+      BACKGROUND.AMPLITUDE,
+      BACKGROUND.FREQUENCY,
+      WAVE_LAYOUT.HORIZON_HEIGHT,
+      BACKGROUND.OFFSET,
+    );
+  }, []);
+
+  const midgroundWavePath = useDerivedValue(() => {
+    return createWavePath(
+      clock,
+      MIDGROUND.SPEED_MULTIPLIER,
+      width,
+      MIDGROUND.AMPLITUDE,
+      MIDGROUND.FREQUENCY,
+      WAVE_LAYOUT.HORIZON_HEIGHT,
+      MIDGROUND.OFFSET,
+    );
+  }, []);
+
+  const foregroundWavePath = useDerivedValue(() => {
+    return createWavePath(
+      clock,
+      FOREGROUND.SPEED_MULTIPLIER,
+      width,
+      FOREGROUND.AMPLITUDE,
+      FOREGROUND.FREQUENCY,
+      WAVE_LAYOUT.HORIZON_HEIGHT,
+      FOREGROUND.OFFSET,
+    );
+  }, []);
+
+  return (
+    <Canvas
+      style={{
+        width: width,
+        height: WAVE_LAYOUT.HORIZON_HEIGHT,
+      }}
+    >
+      <BackgroundWave path={backgroundWavePath} />
+      <MidgroundWave path={midgroundWavePath} />
+      <ForegroundWave path={foregroundWavePath} />
+    </Canvas>
+  );
+}

@@ -17,16 +17,16 @@ const VERSION = packageJson.version;
 const SLUG = 'pado';
 const SCHEME = [
   'pado',
-  'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi',
+  'com.googleusercontent.apps.462769921210-ocj5vrpss8iu7brqoh55amrq3bj76l4f',
 ];
 const IOS_REDIRECT_URI =
-  'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi:/oauth2redirect/google';
+  'com.googleusercontent.apps.462769921210-ocj5vrpss8iu7brqoh55amrq3bj76l4f:/oauth2redirect/google';
 const IOS_GOOGLE_CLIENT_ID =
-  '259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi.apps.googleusercontent.com';
+  '462769921210-ocj5vrpss8iu7brqoh55amrq3bj76l4f.apps.googleusercontent.com';
 const IOS_BUNDLE_IDENTIFIER = 'com.taewoongheo.pado';
 const ANDROID_PACKAGE = 'com.taewoongheo.pado';
 const WEB_CLIENT_ID =
-  '259176724998-vh35l79vnbvngmht1aeh8b4jlqekd6q0.apps.googleusercontent.com';
+  '462769921210-uoli77o7e6u25cou915jusrmcfnfal83.apps.googleusercontent.com';
 
 // define env schema
 const client = z.object({
