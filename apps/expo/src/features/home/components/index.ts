@@ -3,4 +3,4 @@ export * from './CbtButtonList';
 export * from './DeepSeaSection';
 export * from './HomeBackground';
 export * from './SkySection';
-export * from './WaveHorizon';
+export * from './Wave';
