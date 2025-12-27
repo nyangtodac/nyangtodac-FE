@@ -12,19 +12,19 @@ console.log('loading env from:', envPath);
 
 dotenv.config({ path: envPath });
 
-const NAME = '냥토닥';
+const NAME = '파도';
 const VERSION = packageJson.version;
-const SLUG = 'nyangtodac';
+const SLUG = 'pado';
 const SCHEME = [
-  'nyangtodac',
+  'pado',
   'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi',
 ];
 const IOS_REDIRECT_URI =
   'com.googleusercontent.apps.259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi:/oauth2redirect/google';
 const IOS_GOOGLE_CLIENT_ID =
   '259176724998-g516lkit656ij0g9v7jp8s6umlhckvfi.apps.googleusercontent.com';
-const IOS_BUNDLE_IDENTIFIER = 'com.taewoongheo.nyangtodac';
-const ANDROID_PACKAGE = 'com.taewoongheo.nyangtodac';
+const IOS_BUNDLE_IDENTIFIER = 'com.taewoongheo.pado';
+const ANDROID_PACKAGE = 'com.taewoongheo.pado';
 const WEB_CLIENT_ID =
   '259176724998-vh35l79vnbvngmht1aeh8b4jlqekd6q0.apps.googleusercontent.com';
 
